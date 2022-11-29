@@ -1,0 +1,10 @@
+gym==0.23.0
+matplotlib==3.6.2
+numpy==1.23.5
+opencv-python==4.6.0.66
+pybullet==3.2.5
+scipy==1.9.3
+six==1.16
+tensorflow==2.11
+tensorflow_datasets==4.7.0
+tf_agents==0.14.0
