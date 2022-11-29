@@ -20,10 +20,11 @@ import numpy as np
 from scipy.spatial import transform
 import pybullet
 
+
 XARM_URDF_PATH = ('third_party/bullet/examples/pybullet/gym/pybullet_data/'
                   'xarm/xarm6_robot.urdf')
-XARM_WHITE_URDF_PATH = ('third_party/robotics/models/xarm/'
-                        'xarm6_robot_white.urdf')
+XARM_WHITE_URDF_PATH = ('third_party/bullet/examples/pybullet/gym/'
+                        'pybullet_data/xarm/xarm6_robot_white.urdf')
 SUCTION_URDF_PATH = (
     'third_party/py/language_table/environments/assets/suction/'
     'suction-head-long.urdf')
