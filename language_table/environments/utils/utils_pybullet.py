@@ -60,14 +60,12 @@ def matrix_to_rotation(matrix):
 
 def load_urdf(pybullet_client, file_path, *args, **kwargs):
   """Loads the given URDF filepath."""
-
   # Handles most general file open case.
   try:
     if os.path.exists(file_path):
       return pybullet_client.loadURDF(file_path, *args, **kwargs)
   except pybullet_client.error:
     pass
-
 
   try:
     if file_path.startswith('third_party/py/language_table/'):
@@ -76,17 +74,19 @@ def load_urdf(pybullet_client, file_path, *args, **kwargs):
         'third_party/bullet/examples/pybullet/gym/pybullet_data/'):
       pybullet_client.setAdditionalSearchPath(pybullet_data.getDataPath())
       file_path = file_path[55:]
-    elif file_path.startswith('robotics/'):
-      pybullet_client.setAdditionalSearchPath(os.environ['PYTHONPATH'])
-      file_path = file_path[9:]
     elif file_path.startswith('third_party/'):
       pybullet_client.setAdditionalSearchPath(os.environ['PYTHONPATH'])
-
+    elif file_path.startswith('language_table/environments/'):
+      current_dir = os.path.dirname(os.path.realpath(__file__))
+      root_path = os.path.join(current_dir, '../../../')
+      file_path = os.path.join(root_path, file_path)
     logging.info('Loading URDF %s', file_path)
     return pybullet_client.loadURDF(file_path, *args, **kwargs)
   except pybullet.error as exc:
     raise FileNotFoundError(
         'Cannot load the URDF file {}'.format(file_path)) from exc
+
+
 
 
 

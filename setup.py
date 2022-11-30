@@ -53,4 +53,5 @@ core.setup(
     url='https://github.com/google-research/language-table',
     packages=find_packages(),
     install_requires=install_requires,
+    include_package_data=True
 )
