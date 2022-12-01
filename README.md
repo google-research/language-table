@@ -19,7 +19,7 @@ export PYTHONPATH=${PWD}:$PYTHONPATH
 ## Quickstart
 
 ### Examples
-
+#### Scripts
 Run and edit the following examples:
 
 Load the environment and run 5 random steps:
@@ -33,6 +33,9 @@ Load dataset and print first 5 elements:
 ```
 python3 language_table/examples/dataset_example.py
 ```
+
+#### Colab
+See the [colab](https://colab.research.google.com/github/google-research/language-table/blob/main/language_table/examples/language_table_tutorial.ipynb) for a more complete tutorial.
 
 ### Data
 ```
