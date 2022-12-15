@@ -76,6 +76,7 @@ class XArmSimRobot():
 
     # Move robot to home joint configuration
     self.reset_joints(self.initial_joint_positions)
+    self.set_target_joint_positions(self.initial_joint_positions)
     self.effector_link = 6
 
     if (end_effector == 'suction'
@@ -112,7 +113,7 @@ class XArmSimRobot():
         jointAxis=(0, 0, 0),
         parentFramePosition=(0, 0, 0),
         childFramePosition=(0, 0, 0))
-    self._pybullet_client.changeConstraint(constraint_id, maxForce=50)
+    self._pybullet_client.changeConstraint(constraint_id, maxForce=1000)
 
     return body
 
@@ -145,8 +146,8 @@ class XArmSimRobot():
 
   def forward_kinematics(self):
     """Forward kinematics."""
-    effector_state = self._pybullet_client.getLinkState(self.xarm,
-                                                        self.effector_link)
+    effector_state = self._pybullet_client.getLinkState(
+        self.xarm, self.effector_link, computeForwardKinematics=1)
     return Pose3d(translation=np.array(effector_state[0]),
                   rotation=transform.Rotation.from_quat(effector_state[1]))
 
