@@ -54,7 +54,8 @@ class LanguageTable(gym.Env):
                seed=None,
                delay_reward_steps=0,
                render_text_in_image=True,
-               debug_visuals = False):
+               debug_visuals = False,
+               add_invisible_walls = False):
     """Creates an env instance.
 
     Args:
@@ -73,6 +74,8 @@ class LanguageTable(gym.Env):
         During the delay, state should be within the reward-triggering region.
       render_text_in_image: bool, Whether to add instruction info to the image.
       debug_visuals: bool, Whether to render debug visuals.
+      add_invisible_walls: bool, (Experimental) Whether to add walls that
+        prevent the blocks from sliding off the edges.
     """
     self._block_mode = block_mode
     self._training = training
@@ -87,6 +90,7 @@ class LanguageTable(gym.Env):
     self._target_relative_location = None
 
     self._debug_visuals = debug_visuals
+    self._add_invisible_walls = add_invisible_walls
 
     self._render_text_in_image = render_text_in_image
 
@@ -665,27 +669,31 @@ class LanguageTable(gym.Env):
           rgba=(0, 1, 0, 0))
       # Board boundary markers.
       # Top left.
+      buffer = 0.02
+      buffer_x_max = 0.04
+      # TODO(peteflornece): these adjusted positions are not yet
+      # reflected in metrics.
       add_visual_sphere(
           self._pybullet_client,
-          center=(constants.X_MIN, constants.Y_MIN, 0),
+          center=(constants.X_MIN + buffer, constants.Y_MIN + buffer, 0),
           radius=0.005,
           rgba=(1, 0, 0, 0))
       # Top center.
       add_visual_sphere(
           self._pybullet_client,
-          center=(constants.CENTER_X, constants.Y_MIN, 0),
+          center=(constants.CENTER_X, constants.Y_MIN + buffer, 0),
           radius=0.005,
           rgba=(1, 0, 0, 0))
       # Top right.
       add_visual_sphere(
           self._pybullet_client,
-          center=(constants.X_MAX, constants.Y_MIN, 0),
+          center=(constants.X_MAX - buffer_x_max, constants.Y_MIN + buffer, 0),
           radius=0.005,
           rgba=(1, 0, 0, 0))
       # Middle left.
       add_visual_sphere(
           self._pybullet_client,
-          center=(constants.X_MIN, constants.CENTER_Y, 0),
+          center=(constants.X_MIN + buffer, constants.CENTER_Y, 0),
           radius=0.005,
           rgba=(1, 0, 0, 0))
       # Middle center.
@@ -697,30 +705,33 @@ class LanguageTable(gym.Env):
       # Middle right.
       add_visual_sphere(
           self._pybullet_client,
-          center=(constants.X_MAX, constants.CENTER_Y, 0),
+          center=(constants.X_MAX - buffer_x_max, constants.CENTER_Y, 0),
           radius=0.005,
           rgba=(1, 0, 0, 0))
       # Bottom left.
       add_visual_sphere(
           self._pybullet_client,
-          center=(constants.X_MIN, constants.Y_MAX, 0),
+          center=(constants.X_MIN + buffer, constants.Y_MAX, 0),
           radius=0.005,
           rgba=(1, 0, 0, 0))
       # Bottom middle.
       add_visual_sphere(
           self._pybullet_client,
-          center=(constants.CENTER_X, constants.Y_MAX, 0),
+          center=(constants.CENTER_X, constants.Y_MAX - buffer, 0),
           radius=0.005,
           rgba=(1, 0, 0, 0))
       # Bottom right.
       add_visual_sphere(
           self._pybullet_client,
-          center=(constants.X_MAX, constants.Y_MAX, 0),
+          center=(constants.X_MAX - buffer_x_max, constants.Y_MAX - buffer, 0),
           radius=0.005,
           rgba=(1, 0, 0, 0))
 
     # Re-enable rendering.
     pybullet.configureDebugVisualizer(pybullet.COV_ENABLE_RENDERING, 1)
+
+    if self._add_invisible_walls:
+      self._construct_invisible_walls()
 
     self._step_simulation_to_stabilize()
 
@@ -918,6 +929,72 @@ class LanguageTable(gym.Env):
             raise ValueError('Cannot find a block config with valid reward.')
           continue  # Try again with a new configuration of blocks.
       break
+
+  def _construct_invisible_walls(self):
+    walls = []
+
+    mass = 0
+    visible = False
+    if visible:
+      vis_shape_id = -1
+    else:
+      vis_shape_id = pybullet.createVisualShape(
+          shapeType=pybullet.GEOM_SPHERE,
+          radius=1e-6,
+          rgbaColor=[1, 1, 1, 0.])
+
+    extent_width = 0.04
+    extent_height = 0.1
+
+    distance_x = (constants.X_MAX - constants.X_MIN) / 2.0
+    distance_y = (constants.Y_MAX - constants.Y_MIN) / 2.0
+    buffer = -0.01
+
+    # RIGHT
+    box = pybullet.createCollisionShape(
+        pybullet.GEOM_BOX,
+        halfExtents=[distance_x, extent_width, extent_height])
+    position = [constants.CENTER_X, constants.Y_MAX - buffer, 0]
+    wall = pybullet.createMultiBody(
+        mass, box, vis_shape_id, position, useMaximalCoordinates=0)
+    walls.append(wall)
+
+    # LEFT
+    box = pybullet.createCollisionShape(
+        pybullet.GEOM_BOX,
+        halfExtents=[distance_x, extent_width, extent_height])
+    position = [constants.CENTER_X, constants.Y_MIN + buffer, 0]
+    wall = pybullet.createMultiBody(
+        mass, box, vis_shape_id, position, useMaximalCoordinates=0)
+    walls.append(wall)
+
+    # TOP
+    box = pybullet.createCollisionShape(
+        pybullet.GEOM_BOX,
+        halfExtents=[extent_width, distance_y, extent_height])
+    position = [constants.X_MIN + buffer - 0.02, constants.CENTER_Y, 0]
+    wall = pybullet.createMultiBody(
+        mass, box, vis_shape_id, position, useMaximalCoordinates=0)
+    walls.append(wall)
+
+    # BOTTOM
+    box = pybullet.createCollisionShape(
+        pybullet.GEOM_BOX,
+        halfExtents=[extent_width, distance_y, extent_height])
+    position = [constants.X_MAX - buffer, constants.CENTER_Y, 0]
+    wall = pybullet.createMultiBody(
+        mass, box, vis_shape_id, position, useMaximalCoordinates=0)
+    walls.append(wall)
+
+    # This turns off collision between walls and blocks
+    # for block_id in self._block_ids:
+    #   pybullet.setCollisionFilterPair(block_id, sphereUid, -1, -1, 0)
+
+    # This turns off collision between walls and end-effector
+    for wall in walls:
+      for i in range(10):  # iterate over links of end-effector
+        pybullet.setCollisionFilterPair(self._robot.end_effector,
+                                        wall, i-1, -1, 0)
 
 
 def add_debug_info_to_image(image,
