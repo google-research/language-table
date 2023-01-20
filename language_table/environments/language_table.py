@@ -972,7 +972,7 @@ class LanguageTable(gym.Env):
     box = pybullet.createCollisionShape(
         pybullet.GEOM_BOX,
         halfExtents=[extent_width, distance_y, extent_height])
-    position = [constants.X_MIN + buffer - 0.02, constants.CENTER_Y, 0]
+    position = [constants.X_MIN + buffer - 0.01, constants.CENTER_Y, 0]
     wall = pybullet.createMultiBody(
         mass, box, vis_shape_id, position, useMaximalCoordinates=0)
     walls.append(wall)
@@ -981,7 +981,7 @@ class LanguageTable(gym.Env):
     box = pybullet.createCollisionShape(
         pybullet.GEOM_BOX,
         halfExtents=[extent_width, distance_y, extent_height])
-    position = [constants.X_MAX - buffer, constants.CENTER_Y, 0]
+    position = [constants.X_MAX - buffer - 0.02, constants.CENTER_Y, 0]
     wall = pybullet.createMultiBody(
         mass, box, vis_shape_id, position, useMaximalCoordinates=0)
     walls.append(wall)
