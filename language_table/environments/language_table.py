@@ -578,7 +578,7 @@ class LanguageTable(gym.Env):
 
   def _render_camera(self, image_size, return_seg_mask=False):
     """Render RGB image with RealSense configuration."""
-    viewm, projm, _, _, _ = self.calc_camera_params(image_size)
+    viewm, projm, _, _, _ = self.calc_camera_params(image_size)  # pytype: disable=wrong-arg-types  # always-use-return-annotations
 
     # Render with OpenGL camera settings.
     _, _, color, _, _ = self._pybullet_client.getCameraImage(
