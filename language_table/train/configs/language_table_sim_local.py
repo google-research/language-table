@@ -25,7 +25,7 @@ dataset_paths = {
 
 
 def get_config():
-  """Config for training on imagenet. Should be used on a 4x4 TPU slice."""
+  """Config for training sim human 8 block with BC locally."""
   config = ml_collections.ConfigDict()
   config.binary = "language_table/train/main"
 
