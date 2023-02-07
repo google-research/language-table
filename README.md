@@ -7,7 +7,8 @@ Language-Table is a suite of human-collected datasets and a multi-task continuou
 
 ## Installation
 
-Installation with `pip`:
+Installation with `pip`. `requirements.txt` contains dependencies for running
+the environment and simple dataset examples.
 
 ```
 python3 -m venv ./ltvenv
@@ -16,6 +17,15 @@ pip install -r ./requirements.txt
 export PYTHONPATH=${PWD}:$PYTHONPATH
 ```
 
+For running the full train script, install using `requirements_static.txt`, as
+this contains pinned versions for running the full train script.
+
+```
+python3 -m venv ./ltvenvtrain
+source ./ltvenvtrain/bin/activate
+pip install --no-deps -r ./requirements_static.txt
+export PYTHONPATH=${PWD}:$PYTHONPATH
+```
 ## Quickstart
 
 ### Examples
@@ -32,6 +42,14 @@ Load dataset and print first 5 elements:
 
 ```
 python3 language_table/examples/dataset_example.py
+```
+
+#### Train
+
+```
+source ./ltvenvtrain/bin/activate
+mkdir -p /tmp/language_table_train/
+PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python  python language_table/train/main.py --config=./language_table/train/configs/language_table_sim_local.py --workdir=/tmp/language_table_train/
 ```
 
 #### Colab
