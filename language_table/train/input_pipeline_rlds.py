@@ -171,7 +171,7 @@ def create_datasets(
       ),
       PhotometricDistortions(),
   ]
-  train_preprocess = preprocess_spec.PreprocessFn(
+  train_preprocess = preprocess_spec.PreprocessFn(  # pytype: disable=wrong-arg-types  # re-none
       preprocessors, only_jax_types=True
   )
 
