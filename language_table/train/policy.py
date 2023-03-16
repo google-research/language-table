@@ -29,10 +29,9 @@ class BCJaxPyPolicy(py_policy.PyPolicy):
   """Runs inference with a BC policy."""
 
   def __init__(self, time_step_spec, action_spec, model, checkpoint_path,
-               normalize_rgb, rng, params=None, action_statistics=None):
+               rng, params=None, action_statistics=None):
     super(BCJaxPyPolicy, self).__init__(time_step_spec, action_spec)
     self.model = model
-    self._normalize_rgb = normalize_rgb
     self.rng = rng
 
     if params is not None and action_statistics is not None:
@@ -69,12 +68,6 @@ class BCJaxPyPolicy(py_policy.PyPolicy):
   def _run_action_inference(self, observation):
     # Add a batch dim.
     observation = jax.tree_map(lambda x: jnp.expand_dims(x, 0), observation)
-
-    # For PUSH we need to normalize RGB.
-    if self._normalize_rgb:
-      rgb = observation["rgb"]
-      rgb = (rgb - self._rgb_mean) / jnp.maximum(self._rgb_std, EPS)
-      observation["rgb"] = rgb
 
     normalized_action = self.model.apply(
         self.variables, observation, train=False)

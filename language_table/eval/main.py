@@ -97,7 +97,6 @@ def evaluate_checkpoint(checkpoint_path, workdir, config):
           env.action_spec(),
           model=model,
           checkpoint_path=checkpoint_path,
-          normalize_rgb=config.data_normalize_rgb,
           rng=jax.random.PRNGKey(0))
 
     for ep_num in range(num_evals_per_reward):

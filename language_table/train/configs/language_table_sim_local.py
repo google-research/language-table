@@ -58,7 +58,6 @@ def get_config():
   config.agent.freeze_keys = ["TextEncoder_0"]
 
   config.dataset_path = dataset_paths["language_table_sim"]
-  config.data_normalize_rgb = False
   config.data_target_width = 320
   config.data_target_height = 180
   config.image_photometric_distortions = True
