@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""A config for training sim human 8 block with BC."""
+"""A config for training sim human 8 block with Pretrained Resnet + BC."""
 
 import ml_collections
 
@@ -41,7 +41,7 @@ def get_config():
   config.model.lava_d_model = 128
   config.model.lava_num_heads = 2
   config.model.lava_pyramid_fuse_layers = (2, 3, 4)
-  config.model.lava_image_encoder = "conv_maxpool"
+  config.model.lava_image_encoder = "resnet"
   config.model.lava_lang_encoder = "clip"
 
   config.agent_name = "bc"
