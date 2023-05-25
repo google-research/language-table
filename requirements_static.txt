@@ -161,7 +161,7 @@ toml==0.10.2
 toolz==0.12.0
 torch==1.13.1
 torchvision==0.14.1
-tornado==6.2
+tornado==6.3.2
 tqdm==4.64.1
 traitlets==5.5.0
 typeguard==2.13.3
