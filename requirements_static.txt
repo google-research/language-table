@@ -120,7 +120,7 @@ PyAudio==0.2.12
 pybullet==3.2.5
 pycparser==2.21
 pygame==2.1.0
-Pygments==2.14.0
+Pygments==2.15.0
 pyparsing==3.0.9
 pyrsistent==0.19.2
 python-dateutil==2.8.2
