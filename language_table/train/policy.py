@@ -67,7 +67,7 @@ class BCJaxPyPolicy(py_policy.PyPolicy):
 
   def _run_action_inference(self, observation):
     # Add a batch dim.
-    observation = jax.tree_map(lambda x: jnp.expand_dims(x, 0), observation)
+    observation = jax.tree.map(lambda x: jnp.expand_dims(x, 0), observation)
 
     normalized_action = self.model.apply(
         self.variables, observation, train=False)

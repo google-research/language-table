@@ -44,7 +44,7 @@ def multi_train_step(state, batches, agent, initial_metrics, rng):
     train_rng = jax.random.fold_in(train_rng, jax.lax.axis_index("batch"))
     new_state, metrics_update = agent.train(
         state=state,
-        batch=jax.tree_map(lambda x: x[step], batches),
+        batch=jax.tree.map(lambda x: x[step], batches),
         rng=train_rng,
     )
     return new_state, metrics_update
@@ -101,7 +101,7 @@ def train(
   )
   train_iter = train_ds.as_numpy_iterator()
   rng, agent_rng = jax.random.split(rng)
-  sample_batch = jax.tree_map(lambda x: x[0][0], next(train_iter))
+  sample_batch = jax.tree.map(lambda x: x[0][0], next(train_iter))
   agent = create_agent(
       config.agent_name,
       config.model_name,
@@ -257,7 +257,7 @@ def create_agent(
 
 def merge_batch_stats(replicated_state):
   """Merge model batch stats."""
-  if jax.tree_leaves(replicated_state.batch_stats):
+  if jax.tree.leaves(replicated_state.batch_stats):
     cross_replica_mean = jax.pmap(lambda x: jax.lax.pmean(x, "x"), "x")
     return replicated_state.replace(
         batch_stats=cross_replica_mean(replicated_state.batch_stats)
