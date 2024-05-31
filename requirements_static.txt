@@ -162,7 +162,7 @@ toolz==0.12.0
 torch==1.13.1
 torchvision==0.14.1
 tornado==6.2
-tqdm==4.64.1
+tqdm==4.66.3
 traitlets==5.5.0
 typeguard==2.13.3
 types-protobuf==3.20.4
