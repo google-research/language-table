@@ -167,7 +167,7 @@ traitlets==5.5.0
 typeguard==2.13.3
 types-protobuf==3.20.4
 typing_extensions==4.3.0
-urllib3==1.26.14
+urllib3==1.26.19
 wcwidth==0.2.5
 websocket-client==1.4.2
 Werkzeug==2.2.2
