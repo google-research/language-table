@@ -159,7 +159,7 @@ tf-hub-nightly==0.13.0.dev202302070818
 tf-nightly==2.12.0.dev20230203
 toml==0.10.2
 toolz==0.12.0
-torch==1.13.1
+torch==2.2.0
 torchvision==0.14.1
 tornado==6.2
 tqdm==4.64.1
