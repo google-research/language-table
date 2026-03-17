@@ -114,7 +114,7 @@ protobuf==4.21.12
 psutil==5.9.4
 ptyprocess==0.7.0
 pure-eval==0.2.2
-pyasn1==0.4.8
+pyasn1==0.6.3
 pyasn1-modules==0.2.8
 PyAudio==0.2.12
 pybullet==3.2.5
