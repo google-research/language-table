@@ -95,7 +95,7 @@ nvidia-cuda-nvrtc-cu11==11.7.99
 nvidia-cuda-runtime-cu11==11.7.99
 nvidia-cudnn-cu11==8.5.0.96
 oauthlib==3.2.2
-opencv-python==4.6.0.66
+opencv-python==4.8.1.78
 opt-einsum==3.3.0
 optax @ git+https://github.com/deepmind/optax.git@d9157132b8661e1453d156f591784ff27d6d1141
 packaging==23.0
