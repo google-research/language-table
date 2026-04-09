@@ -1,5 +1,5 @@
 # coding=utf-8
-# Copyright 2024 The Language Tale Authors.
+# Copyright 2026 The Language Tale Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -136,8 +136,9 @@ class Block1ToCornerLocationReward(base_reward.LanguageTableReward):
     reward, done = self.reward_for(state, self._block, self._target_translation)
     return reward, done
 
-  def reward_for(self, state, pushing_block,
-                 target_translation):
+  def reward_for(
+      self, state, pushing_block, target_translation
+  ):
     """Returns 1. if pushing_block is in location."""
     # Get current location of the target block.
     current_translation, _ = self._get_pose_for_block(pushing_block, state)
