@@ -48,7 +48,7 @@ grpcio-status==1.49.1
 gym==0.23.0
 gym-notices==0.0.8
 h5py==3.7.0
-idna==3.4
+idna==3.7
 imageio==2.28.0
 immutabledict==2.2.3
 importlib-resources==5.9.0
