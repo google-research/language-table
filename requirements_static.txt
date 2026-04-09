@@ -135,7 +135,7 @@ rich==11.2.0
 rlds==0.1.7
 rsa==4.9
 scenic @ git+https://github.com/google-research/scenic.git@ae21d9e884015aa7bc7cf1d489af53d16c249726
-scipy==1.9.3
+scipy==1.10.0
 Send2Trash==1.8.0
 six==1.16.0
 sniffio==1.3.0
