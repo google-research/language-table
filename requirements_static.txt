@@ -103,7 +103,7 @@ pandocfilters==1.5.0
 parso==0.8.3
 pexpect==4.8.0
 pickleshare==0.7.5
-Pillow==9.4.0
+Pillow==10.3.0
 platformdirs==2.5.4
 portpicker==1.5.2
 prometheus-client==0.15.0
