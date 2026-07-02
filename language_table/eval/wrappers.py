@@ -88,7 +88,7 @@ class CentralCropImageWrapper(wrappers.PyEnvironmentBaseWrapper):
     image = obs['rgb']
     image = tf.image.convert_image_dtype(image, dtype=tf.float32)
     # Apply average crop augmentation.
-    image = crop_test_image(image, self._random_crop_factor)
+    image = crop_test_image(image, self._random_crop_factor)  # pyrefly: ignore[bad-argument-type]
     image = resize_images(image, self._target_height, self._target_width)
     new_obs['rgb'] = image.numpy()
     return new_obs

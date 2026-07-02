@@ -217,12 +217,12 @@ class OrientedPushOracle(py_policy.PyPolicy):
           info.theta_threshold_flat_enough)
 
     if self._action_noise_std != 0.0:
-      xy_delta += (self._np_random_state.randn(2) *
+      xy_delta += (self._np_random_state.randn(2) *  # pyrefly: ignore[unbound-name]
                    self._action_noise_std)
 
     max_step_distance = max_step_velocity * (1 /
                                              self._env.get_control_frequency())
-    length = np.linalg.norm(xy_delta)
+    length = np.linalg.norm(xy_delta)  # pyrefly: ignore[unbound-name]
     if length > max_step_distance:
       xy_direction = xy_delta / length
       xy_delta = xy_direction * max_step_distance
@@ -237,4 +237,4 @@ class OrientedPushOracle(py_policy.PyPolicy):
     raw_state = self._env.compute_state()
     xy_delta = self._get_action_for_block_target(
         raw_state, block="block", target="target")
-    return policy_step.PolicyStep(action=np.asarray(xy_delta, dtype=np.float32))
+    return policy_step.PolicyStep(action=np.asarray(xy_delta, dtype=np.float32))  # pyrefly: ignore[missing-argument]

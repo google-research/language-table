@@ -119,7 +119,7 @@ def evaluate_checkpoint(checkpoint_path, workdir, config):
       frames = [env.render()]
 
       episode_steps = 0
-      while not ts.is_last():
+      while not ts.is_last():  # pyrefly: ignore[unbound-name]
         policy_step = policy.action(ts, ())
         ts = env.step(policy_step.action)
         frames.append(env.render())
@@ -140,7 +140,7 @@ def evaluate_checkpoint(checkpoint_path, workdir, config):
       # Write out video of rollout.
       video_path = os.path.join(workdir, "videos/",
                                 f"{reward_name}_{ep_num}_{success_str}.mp4")
-      mediapy_lib.write_video(video_path, frames, fps=10)
+      mediapy_lib.write_video(video_path, frames, fps=10)  # pyrefly: ignore[bad-argument-type]
 
     print(results)
 

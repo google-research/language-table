@@ -188,13 +188,13 @@ class BlockToBlockRelativeLocationReward(base_reward.LanguageTableReward):
     self._target_translation = target_translation
     return task_info.Block2BlockRelativeLocationTaskInfo(
         # Reuse same instruction.
-        instruction=self._instruction,
+        instruction=self._instruction,  # pyrefly: ignore[bad-argument-type]
         # Reuse same block.
-        block=self._block,
+        block=self._block,  # pyrefly: ignore[bad-argument-type]
         # Update to fresh target_translation.
         target_translation=self._target_translation,
         target_block=self._target_block,
-        direction=self._direction)
+        direction=self._direction)  # pyrefly: ignore[bad-argument-type]
 
   def _sample_instruction(
       self, block, target_block, direction, blocks_on_table):
@@ -363,7 +363,7 @@ class BlockToBlockRelativeLocationReward(base_reward.LanguageTableReward):
         done = True
       else:
         logging.info('In reward zone for %d steps', self._in_reward_zone_steps)
-        self._in_reward_zone_steps += 1
+        self._in_reward_zone_steps += 1  # pyrefly: ignore[unsupported-operation]
     return reward, done
 
   def get_goal_region(self):

@@ -61,7 +61,7 @@ class ChanRunningStatistics:
       avg_sample = sample
       m2_sample = 0.0
 
-    self._n, self._mean, self._m2, self._m2_b_c = (
+    self._n, self._mean, self._m2, self._m2_b_c = (  # pyrefly: ignore[bad-assignment]
         tensor_normalizer.parallel_variance_calculation(
             sample_n,
             avg_sample,
@@ -177,7 +177,7 @@ def compute_dataset_statistics(dataset,
         for o in obs:
           obs_stat.update_running_statistics(o.numpy())
 
-      for act, act_stat in zip(flat_actions, act_statistics):
+      for act, act_stat in zip(flat_actions, act_statistics):  # pyrefly: ignore[bad-argument-type]
         act_stat.update_running_statistics(act.numpy())
 
       min_actions, max_actions = zip(*tf.nest.map_structure(
@@ -190,21 +190,21 @@ def compute_dataset_statistics(dataset,
       progress_bar.update(1)
 
   new_obs_statistics = []
-  for stat in obs_statistics:
+  for stat in obs_statistics:  # pyrefly: ignore[not-iterable]
     new_obs_statistics.append({
         "mean": stat.mean.tolist(),
         "std": stat.std.tolist(),
         "n": stat.n,
     })
   new_act_statistics = []
-  for stat in act_statistics:
+  for stat in act_statistics:  # pyrefly: ignore[not-iterable]
     new_act_statistics.append({
         "mean": stat.mean.tolist(),
         "std": stat.std.tolist(),
         "n": stat.n,
     })
-  min_actions = [item.tolist() for item in min_actions]
-  max_actions = [item.tolist() for item in max_actions]
+  min_actions = [item.tolist() for item in min_actions]  # pyrefly: ignore[not-iterable]
+  max_actions = [item.tolist() for item in max_actions]  # pyrefly: ignore[not-iterable]
   return new_obs_statistics, new_act_statistics, min_actions, max_actions
 
 

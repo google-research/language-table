@@ -89,10 +89,10 @@ class PointToBlockReward(base_reward.LanguageTableReward):
     reward = 0.0
     done = False
     if dist < constants.TARGET_BLOCK_DISTANCE:
-      if self._in_reward_zone_steps >= self._delay_reward_steps:
+      if self._in_reward_zone_steps >= self._delay_reward_steps:  # pyrefly: ignore[unsupported-operation]
         reward = self._goal_reward
         done = True
       else:
         logging.info('In reward zone for %d steps', self._in_reward_zone_steps)
-        self._in_reward_zone_steps += 1
+        self._in_reward_zone_steps += 1  # pyrefly: ignore[unsupported-operation]
     return reward, done

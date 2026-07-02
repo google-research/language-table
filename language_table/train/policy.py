@@ -52,7 +52,7 @@ class BCJaxPyPolicy(py_policy.PyPolicy):
     else:
       # We can load the observation and action statistics from the state dict.
       self.action_mean = np.array(
-          state_dict["norm_info"]["action_statistics"]["mean"])
+          state_dict["norm_info"]["action_statistics"]["mean"])  # pyrefly: ignore[unbound-name]
       self.action_std = np.array(
           state_dict["norm_info"]["action_statistics"]["std"])
 
@@ -84,4 +84,4 @@ class BCJaxPyPolicy(py_policy.PyPolicy):
   def _action(self, time_step, policy_state=(), seed=0):
     observation = time_step.observation
     action = self._run_action_inference_jit(observation)[0]
-    return policy_step.PolicyStep(action=action)
+    return policy_step.PolicyStep(action=action)  # pyrefly: ignore[missing-argument]

@@ -37,7 +37,7 @@ def main(argv):
   out_directory = _CHECKPOINT_DIRECTORY.value
   if not tf.io.gfile.exists(out_directory):
     tf.io.gfile.makedirs(out_directory)
-  ckpt = checkpoint.Checkpoint(base_directory=out_directory)
+  ckpt = checkpoint.Checkpoint(base_directory=out_directory)  # pyrefly: ignore[bad-argument-type]
 
   ckpt.save(model_vars)
 

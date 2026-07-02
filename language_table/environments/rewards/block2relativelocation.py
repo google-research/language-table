@@ -40,10 +40,10 @@ DIRECTIONS = {
     'down': [DOWN, 0.],  # good.
     'left': [0., LEFT],  # good.
     'right': [0., RIGHT],  # good.
-    'diagonal_up_left': [UP, LEFT] / np.linalg.norm([UP, LEFT]),
-    'diagonal_up_right': [UP, RIGHT] / np.linalg.norm([UP, RIGHT]),
-    'diagonal_down_left': [DOWN, LEFT] / np.linalg.norm([DOWN, LEFT]),
-    'diagonal_down_right': [DOWN, RIGHT] / np.linalg.norm([DOWN, RIGHT]),
+    'diagonal_up_left': [UP, LEFT] / np.linalg.norm([UP, LEFT]),  # pyrefly: ignore[unsupported-operation]
+    'diagonal_up_right': [UP, RIGHT] / np.linalg.norm([UP, RIGHT]),  # pyrefly: ignore[unsupported-operation]
+    'diagonal_down_left': [DOWN, LEFT] / np.linalg.norm([DOWN, LEFT]),  # pyrefly: ignore[unsupported-operation]
+    'diagonal_down_right': [DOWN, RIGHT] / np.linalg.norm([DOWN, RIGHT]),  # pyrefly: ignore[unsupported-operation]
 }
 
 
@@ -271,11 +271,11 @@ class BlockToRelativeLocationReward(base_reward.LanguageTableReward):
     reward = 0.0
     done = False
     if dist < BLOCK2RELATIVELOCATION_TARGET_DISTANCE:
-      if self._in_reward_zone_steps >= self._delay_reward_steps:
+      if self._in_reward_zone_steps >= self._delay_reward_steps:  # pyrefly: ignore[unsupported-operation]
         reward = self._goal_reward
         done = True
       else:
         logging.info('In reward zone for %d steps', self._in_reward_zone_steps)
-        self._in_reward_zone_steps += 1
+        self._in_reward_zone_steps += 1  # pyrefly: ignore[unsupported-operation]
 
     return reward, done

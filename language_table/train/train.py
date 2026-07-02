@@ -151,7 +151,7 @@ def train(
   )
   if config.num_train_steps > 0:
     num_train_steps = config.num_train_steps
-  logging.info("num_train_steps=%d", num_train_steps)
+  logging.info("num_train_steps=%d", num_train_steps)  # pyrefly: ignore[unbound-name]
   writer = metric_writers.create_default_writer(
       workdir, just_logging=jax.process_index() > 0
   )

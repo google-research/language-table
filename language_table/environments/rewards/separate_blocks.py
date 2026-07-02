@@ -69,7 +69,7 @@ def generate_all_instructions(block_mode):
           avoid_str = group_syn
         # Choose a high level template.
         for template in SEPARATE_TEMPLATES:
-          instruction = template % (block_syn, avoid_str)
+          instruction = template % (block_syn, avoid_str)  # pyrefly: ignore[unbound-name]
           all_instructions.append(instruction)
   return all_instructions
 
@@ -95,11 +95,11 @@ class SeparateBlocksReward(base_reward.LanguageTableReward):
     # Compute updated "avoid centroid" and implied target_translation,
     # which may have shifted if blocks moved a bit.
     self._target_translation = self.target_translation_for(
-        state, self._block, self._avoid_blocks)
+        state, self._block, self._avoid_blocks)  # pyrefly: ignore[bad-argument-type]
     return task_info.SeparateBlocksTaskInfo(
-        instruction=self._instruction,
+        instruction=self._instruction,  # pyrefly: ignore[bad-argument-type]
         block=self._block,
-        avoid_blocks=self._avoid_blocks,
+        avoid_blocks=self._avoid_blocks,  # pyrefly: ignore[bad-argument-type]
         target_translation=self._target_translation)
 
   def _sample_instruction(self, block, avoid_blocks,
@@ -127,7 +127,7 @@ class SeparateBlocksReward(base_reward.LanguageTableReward):
       avoid_str = group_syn
     # Choose a high level template.
     template = np.random.choice(SEPARATE_TEMPLATES)
-    instruction = template % (block_syn, avoid_str)
+    instruction = template % (block_syn, avoid_str)  # pyrefly: ignore[unbound-name]
     return instruction
 
   def _get_closest_blocks(
@@ -143,7 +143,7 @@ class SeparateBlocksReward(base_reward.LanguageTableReward):
     if not filtered:
       return [], np.inf
     avg_dist = np.mean([i[1] for i in filtered])
-    return [i[0] for i in filtered], avg_dist
+    return [i[0] for i in filtered], avg_dist  # pyrefly: ignore[bad-return]
 
   def _get_blocks_to_separate(self, state, blocks_on_table):
     # For each block, compute distances to other blocks on table.
@@ -265,12 +265,12 @@ class SeparateBlocksReward(base_reward.LanguageTableReward):
     reward = 0.0
     done = False
     if dist < DISTANCE_TO_TARGET_THRESHOLD:
-      if self._in_reward_zone_steps >= self._delay_reward_steps:
+      if self._in_reward_zone_steps >= self._delay_reward_steps:  # pyrefly: ignore[unsupported-operation]
         reward = self._goal_reward
         done = True
       else:
         logging.info('In reward zone for %d steps', self._in_reward_zone_steps)
-        self._in_reward_zone_steps += 1
+        self._in_reward_zone_steps += 1  # pyrefly: ignore[unsupported-operation]
     return reward, done
 
   def reward_for_info(self, state,

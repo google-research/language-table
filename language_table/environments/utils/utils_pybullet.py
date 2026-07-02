@@ -339,16 +339,16 @@ class XarmState(ObjState):
   goal_translation: Optional[Vec3]
 
   @staticmethod
-  def get_bullet_state(client,
+  def get_bullet_state(client,  # pyrefly: ignore[bad-override]
                        obj_id,
                        target_effector_pose,
                        goal_translation):
     if goal_translation is not None:
-      goal_translation = tuple(goal_translation.tolist())
+      goal_translation = tuple(goal_translation.tolist())  # pyrefly: ignore[bad-assignment]
     return XarmState(
         **dataclasses.asdict(ObjState.get_bullet_state(client, obj_id)),
         target_effector_pose=target_effector_pose,
-        goal_translation=goal_translation)
+        goal_translation=goal_translation)  # pyrefly: ignore[bad-argument-type]
 
   def serialize(self):
     data = ObjState.serialize(self)

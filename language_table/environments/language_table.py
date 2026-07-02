@@ -174,7 +174,7 @@ class LanguageTable(gym.Env):
   def seed(self, seed=None):
     rng = np.random.RandomState(seed=seed)
     self._rng = rng
-    self._reward_calculator.seed(rng)
+    self._reward_calculator.seed(rng)  # pyrefly: ignore[missing-attribute]
 
   def step(self, action):
     self._step_robot_and_sim(action)
@@ -201,7 +201,7 @@ class LanguageTable(gym.Env):
   @property
   def succeeded(self):
     state = self._compute_state()
-    reward, _ = self._reward_calculator.reward(state)
+    reward, _ = self._reward_calculator.reward(state)  # pyrefly: ignore[missing-attribute]
     # Assume all board2d rewards are sparse.
     return reward > 0.
 
@@ -228,8 +228,8 @@ class LanguageTable(gym.Env):
     if non_zero.shape[0] == 0:
       return ''
     else:
-      bytes_list = bytes(non_zero.tolist())
-      return bytes_list.decode('utf-8')
+      bytes_list = bytes(non_zero.tolist())  # pyrefly: ignore[bad-assignment]
+      return bytes_list.decode('utf-8')  # pyrefly: ignore[missing-attribute]
 
   def get_pybullet_state(self):
     """Save pybullet state of the scene.
@@ -268,7 +268,7 @@ class LanguageTable(gym.Env):
         oracle_target_translation=self._oracle_target_translation)
     for k, v in oracle_info.items():
       if v is not None:
-        state[k] = v
+        state[k] = v  # pyrefly: ignore[unsupported-operation]
 
     if self._start_block is not None:
       state['start_block'] = self.encode_instruction(self._start_block).tolist()
@@ -375,8 +375,8 @@ class LanguageTable(gym.Env):
     zrange = (0.01, 10.)
 
     # OpenGL camera settings.
-    lookdir = np.float32([0, 0, 1]).reshape(3, 1)
-    updir = np.float32([0, -1, 0]).reshape(3, 1)
+    lookdir = np.float32([0, 0, 1]).reshape(3, 1)  # pyrefly: ignore[bad-argument-type]
+    updir = np.float32([0, -1, 0]).reshape(3, 1)  # pyrefly: ignore[bad-argument-type]
     rotation = self._pybullet_client.getMatrixFromQuaternion(front_rotation)
     rotm = np.float32(rotation).reshape(3, 3)
     lookdir = (rotm @ lookdir).reshape(-1)
@@ -390,7 +390,7 @@ class LanguageTable(gym.Env):
     fovh = 180 * np.arctan(fovh) * 2 / np.pi
 
     # Notes: 1) FOV is vertical FOV 2) aspect must be float
-    aspect_ratio = image_size[1] / image_size[0]
+    aspect_ratio = image_size[1] / image_size[0]  # pyrefly: ignore[bad-index]
     projm = self._pybullet_client.computeProjectionMatrixFOV(
         fovh, aspect_ratio, znear, zfar)
 
@@ -624,7 +624,7 @@ class LanguageTable(gym.Env):
         # caller thread (model inference, etc).
         compute_time = (
             cur_time - self._last_loop_time -
-            self._last_loop_frame_sleep_time * self._sim_steps_per_step)
+            self._last_loop_frame_sleep_time * self._sim_steps_per_step)  # pyrefly: ignore[unsupported-operation]
         # Use this to calculate the current frame's total sleep time to ensure
         # that env.step runs at policy rate. This is an estimate since the
         # previous frame's compute time may not match the current frame.

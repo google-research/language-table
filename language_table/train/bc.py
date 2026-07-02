@@ -43,9 +43,9 @@ class TrainState:
 class TrainMetrics(metrics.Collection):
   """Train metrics for the IBC Agent."""
 
-  learning_rate: metrics.LastValue.from_output("learning_rate")
-  loss: metrics.Average.from_output("loss")
-  loss_std: metrics.Std.from_output("loss")
+  learning_rate: metrics.LastValue.from_output("learning_rate")  # pyrefly: ignore[invalid-annotation]
+  loss: metrics.Average.from_output("loss")  # pyrefly: ignore[invalid-annotation]
+  loss_std: metrics.Std.from_output("loss")  # pyrefly: ignore[invalid-annotation]
 
 
 class BCAgent(object):
@@ -189,7 +189,7 @@ class BCAgent(object):
     grad = jax.lax.pmean(grad, axis_name="batch")
     # Also get the average loss.
     loss = jax.lax.pmean(loss, axis_name="batch")
-    updates, new_opt_state = self.optimizer.update(grad, state.opt_state,
+    updates, new_opt_state = self.optimizer.update(grad, state.opt_state,  # pyrefly: ignore[missing-attribute]
                                                    state.params)
 
     new_params = optax.apply_updates(state.params, updates)

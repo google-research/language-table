@@ -418,7 +418,7 @@ class ObstacleOrientedPushOracleBoard2dRRT(
           info.theta_threshold_flat_enough)
 
     if self._action_noise_std != 0.0:
-      xy_delta += (self._np_random_state.randn(2) *
+      xy_delta += (self._np_random_state.randn(2) *  # pyrefly: ignore[unbound-name]
                    self._action_noise_std)
 
     max_step_distance = max_step_velocity * (1 /
@@ -439,7 +439,7 @@ class ObstacleOrientedPushOracleBoard2dRRT(
                      "max_step_before: %.3f, max_step_after: %.3f",
                      len(self._plan), info.distance_to_target,
                      before_max_step_distance, max_step_distance)
-    length = np.linalg.norm(xy_delta)
+    length = np.linalg.norm(xy_delta)  # pyrefly: ignore[unbound-name]
     if length > max_step_distance:
       xy_direction = xy_delta / length
       xy_delta = xy_direction * max_step_distance
@@ -567,7 +567,7 @@ class ObstacleOrientedPushOracleBoard2dRRT(
       elif dist > s + r:
         dx = 0
         dy = 0
-      return np.array([dx, dy])
+      return np.array([dx, dy])  # pyrefly: ignore[unbound-name]
 
     pf_delta = np.array([0., 0.])
 
@@ -618,7 +618,7 @@ class ObstacleOrientedPushOracleBoard2dRRT(
 
     return xy_delta, max_step_velocity
 
-  def _get_move_to_block(self, info):
+  def _get_move_to_block(self, info):  # pyrefly: ignore[bad-override]
     diff = np.linalg.norm(info.xy_delta_to_nexttoblock)
     if diff < 0.01:
       self.phase = "push_block"

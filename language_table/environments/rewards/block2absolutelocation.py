@@ -146,7 +146,7 @@ class BlockToAbsoluteLocationReward(base_reward.LanguageTableReward):
     info = self.reset_to(state, block, location, blocks_on_table)
     # If the state of the board already triggers the reward, try to reset
     # again with a new configuration.
-    if self._in_goal_region(state, self._block, self._target_translation):
+    if self._in_goal_region(state, self._block, self._target_translation):  # pyrefly: ignore[bad-argument-type]
       # Try again with a new board configuration.
       return task_info.FAILURE
     return info
@@ -178,7 +178,7 @@ class BlockToAbsoluteLocationReward(base_reward.LanguageTableReward):
 
   def reward(self, state):
     """Calculates reward given state."""
-    reward, done = self.reward_for(state, self._block, self._target_translation)
+    reward, done = self.reward_for(state, self._block, self._target_translation)  # pyrefly: ignore[bad-argument-type]
     return reward, done
 
   def reward_for(
@@ -191,12 +191,12 @@ class BlockToAbsoluteLocationReward(base_reward.LanguageTableReward):
                                           target_translation)
 
     if in_goal_region:
-      if self._in_reward_zone_steps >= self._delay_reward_steps:
+      if self._in_reward_zone_steps >= self._delay_reward_steps:  # pyrefly: ignore[unsupported-operation]
         reward = self._goal_reward
         done = True
       else:
         logging.info('In reward zone for %d steps', self._in_reward_zone_steps)
-        self._in_reward_zone_steps += 1
+        self._in_reward_zone_steps += 1  # pyrefly: ignore[unsupported-operation]
     return reward, done
 
   def _in_goal_region(self, state, pushing_block,
@@ -231,7 +231,7 @@ class BlockToAbsoluteLocationReward(base_reward.LanguageTableReward):
 
   def get_current_task_info(self, state):
     return task_info.Block2LocationTaskInfo(
-        instruction=self._instruction,
-        block=self._block,
-        location=self._location,
-        target_translation=self._target_translation)
+        instruction=self._instruction,  # pyrefly: ignore[bad-argument-type]
+        block=self._block,  # pyrefly: ignore[bad-argument-type]
+        location=self._location,  # pyrefly: ignore[bad-argument-type]
+        target_translation=self._target_translation)  # pyrefly: ignore[bad-argument-type]
