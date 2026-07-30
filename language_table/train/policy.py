@@ -76,8 +76,8 @@ class BCJaxPyPolicy(py_policy.PyPolicy):
         self.action_mean)
 
     # Clip the action to spec.
-    action = jnp.clip(action, self.action_spec.minimum,
-                      self.action_spec.maximum)
+    action = jnp.clip(action, self.action_spec.minimum,  # pyrefly: ignore[missing-attribute]
+                      self.action_spec.maximum)  # pyrefly: ignore[missing-attribute]
 
     return action
 
