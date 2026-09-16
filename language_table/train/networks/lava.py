@@ -111,7 +111,7 @@ def sinusoidal_init(max_len, max_timescale = 1.0e4):
 
   def init(key,
            shape,
-           dtype = jnp.float32):
+           dtype = jnp.float32):  # pyrefly: ignore[bad-function-definition]
     """Sinusoidal init.
 
     The defined API by JAX for a custom initializer is:
