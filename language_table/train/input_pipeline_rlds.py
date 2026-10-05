@@ -171,7 +171,7 @@ def create_datasets(
       ),
       PhotometricDistortions(),
   ]
-  train_preprocess = preprocess_spec.PreprocessFn(  # pytype: disable=wrong-arg-types  # re-none
+  train_preprocess = preprocess_spec.PreprocessFn(  # pyrefly: ignore[bad-specialization]
       preprocessors, only_jax_types=True
   )
 

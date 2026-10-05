@@ -20,9 +20,6 @@ He et al., 2015, [https://arxiv.org/abs/1512.03385]
 """
 
 # See issue #620.
-# pytype: disable=wrong-arg-count
-# pytype: disable=missing-parameter
-# pytype: disable=wrong-keyword-args
 
 import functools
 from typing import Any, Tuple, Type
@@ -180,17 +177,17 @@ class ResNet(nn.Module):
 
 
 ResNet18 = functools.partial(
-    ResNet, stage_sizes=(2, 2, 2, 2), block_cls=ResNetBlock)
+    ResNet, stage_sizes=(2, 2, 2, 2), block_cls=ResNetBlock)  # pyrefly: ignore[bad-argument-type]
 ResNet34 = functools.partial(
-    ResNet, stage_sizes=(3, 4, 6, 3), block_cls=ResNetBlock)
+    ResNet, stage_sizes=(3, 4, 6, 3), block_cls=ResNetBlock)  # pyrefly: ignore[bad-argument-type]
 ResNet50 = functools.partial(
-    ResNet, stage_sizes=(3, 4, 6, 3), block_cls=BottleneckResNetBlock)
+    ResNet, stage_sizes=(3, 4, 6, 3), block_cls=BottleneckResNetBlock)  # pyrefly: ignore[bad-argument-type]
 ResNet101 = functools.partial(
-    ResNet, stage_sizes=(3, 4, 23, 3), block_cls=BottleneckResNetBlock)
+    ResNet, stage_sizes=(3, 4, 23, 3), block_cls=BottleneckResNetBlock)  # pyrefly: ignore[bad-argument-type]
 ResNet152 = functools.partial(
-    ResNet, stage_sizes=(3, 8, 36, 3), block_cls=BottleneckResNetBlock)
+    ResNet, stage_sizes=(3, 8, 36, 3), block_cls=BottleneckResNetBlock)  # pyrefly: ignore[bad-argument-type]
 ResNet200 = functools.partial(
-    ResNet, stage_sizes=(3, 24, 36, 3), block_cls=BottleneckResNetBlock)
+    ResNet, stage_sizes=(3, 24, 36, 3), block_cls=BottleneckResNetBlock)  # pyrefly: ignore[bad-argument-type]
 
 
 class MultiscaleResNet(nn.Module):

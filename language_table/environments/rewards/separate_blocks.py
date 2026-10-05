@@ -143,7 +143,7 @@ class SeparateBlocksReward(base_reward.LanguageTableReward):
     if not filtered:
       return [], np.inf
     avg_dist = np.mean([i[1] for i in filtered])
-    return [i[0] for i in filtered], avg_dist  # pyrefly: ignore[bad-return]
+    return [i[0] for i in filtered], avg_dist
 
   def _get_blocks_to_separate(self, state, blocks_on_table):
     # For each block, compute distances to other blocks on table.

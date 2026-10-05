@@ -193,9 +193,9 @@ class BCAgent(object):
                                                    state.params)
 
     new_params = optax.apply_updates(state.params, updates)
-    new_state = state.replace(  # pytype: disable=attribute-error
+    new_state = state.replace(
         step=state.step + 1,
-        params=flax.core.unfreeze(new_params),  # pytype: disable=wrong-arg-types  # numpy-scalars
+        params=flax.core.unfreeze(new_params),  # pyrefly: ignore[bad-argument-type]
         opt_state=flax.core.unfreeze(new_opt_state),
         batch_stats=flax.core.unfreeze(new_batch_stats))
 
