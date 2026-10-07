@@ -85,7 +85,7 @@ def create_datasets(
   shuffle_rng, rng = jax.random.split(rng)
   shuffle_rng = shuffle_rng[0] if deterministic_shuffle else None
   read_config = tfds.ReadConfig(
-      shuffle_seed=shuffle_rng,
+      shuffle_seed=shuffle_rng,  # pyrefly: ignore[bad-argument-type]
       shuffle_reshuffle_each_iteration=True,
       options=dataset_options,
   )
