@@ -43,7 +43,7 @@ google-cloud-speech==2.16.0
 google-pasta==0.2.0
 googleapis-common-protos==1.56.4
 grain==0.1.4
-grpcio==1.49.1
+grpcio==1.53.2
 grpcio-status==1.49.1
 gym==0.23.0
 gym-notices==0.0.8
