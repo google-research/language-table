@@ -73,7 +73,7 @@ keras-nightly==2.13.0.dev2023020508
 Keras-Preprocessing==1.1.2
 kiwisolver==1.4.4
 libclang==14.0.6
-Markdown==3.4.1
+Markdown==3.8.1
 MarkupSafe==2.1.1
 matplotlib==3.6.2
 matplotlib-inline==0.1.6
