@@ -78,7 +78,7 @@ MarkupSafe==2.1.1
 matplotlib==3.6.2
 matplotlib-inline==0.1.6
 mediapy==1.1.6
-mistune==2.0.4
+mistune==3.2.1
 ml-collections==0.1.1
 msgpack==1.0.4
 mypy-protobuf==3.1.0
